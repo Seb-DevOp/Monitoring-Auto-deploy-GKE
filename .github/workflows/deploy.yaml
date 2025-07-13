@@ -52,7 +52,7 @@ jobs:
     - name: Wait for cluster to settle
       run: |
         echo "Waiting 60s for cluster to stabilize..."
-        sleep 60
+        sleep 120
         kubectl get nodes
         kubectl get pods -A
 

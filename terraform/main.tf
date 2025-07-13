@@ -17,6 +17,20 @@ resource "google_container_cluster" "primary" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
+  lifecycle {
+    ignore_changes = [
+      resource_labels,
+      logging_service,
+      monitoring_service,
+      master_version,
+      enable_autopilot,
+      addons_config,
+      ip_allocation_policy,
+      release_channel,
+      notification_config,
+    ]
+  }
+
   node_config {
     machine_type = "e2-medium"
     oauth_scopes = ["https://www.googleapis.com/auth/cloud-platform"]
