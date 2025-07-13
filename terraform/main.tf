@@ -19,15 +19,28 @@ resource "google_container_cluster" "primary" {
 
   lifecycle {
     ignore_changes = [
-      resource_labels,
-      logging_service,
-      monitoring_service,
-      master_version,
-      enable_autopilot,
       addons_config,
-      ip_allocation_policy,
+      cluster_autoscaling,
+      database_encryption,
+      default_snat_status,
+      enable_autopilot,
+      logging_config,
+      monitoring_config,
+      network_policy,
       release_channel,
       notification_config,
+      ip_allocation_policy,
+      resource_labels,
+      master_version,
+      node_version,
+      node_config,
+      master_auth,
+      label_fingerprint,
+      logging_service,
+      monitoring_service,
+      subnetwork,
+      network,
+      endpoint,
     ]
   }
 
