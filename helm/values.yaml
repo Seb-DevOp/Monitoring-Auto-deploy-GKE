@@ -1,5 +1,5 @@
 grafana:
-  adminPassword: prom-operator
+  adminPassword: "${GRAFANA_PASSWORD}"
   service:
     type: ClusterIP
   ingress:
