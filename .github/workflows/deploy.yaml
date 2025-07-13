@@ -48,7 +48,7 @@ jobs:
       run: |
         gcloud container clusters get-credentials gke-monitoring-cluster --region europe-west1 --project ${{ secrets.GCP_PROJECT_ID }} 
 
-        # 🔽 Ajoute une pause simple
+        # Ajoute une pause simple
     - name: Wait for cluster to settle
       run: |
         echo "Waiting 60s for cluster to stabilize..."
