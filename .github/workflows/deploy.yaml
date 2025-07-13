@@ -37,7 +37,9 @@ jobs:
     - name: Terraform Init & Apply
       working-directory: terraform
       run: |
-            terraform init
+            terraform init \
+                -backend-config="bucket=bucket_projet_master" \
+                -backend-config="prefix=GKE_Tfsate"
             terraform apply -auto-approve \
               -var "project_id=${{ secrets.GCP_PROJECT_ID }}" \
               -var "grafana_admin_password=${{ secrets.GRAFANA_PASSWORD }}"
@@ -46,8 +48,20 @@ jobs:
       run: |
         gcloud container clusters get-credentials gke-monitoring-cluster --region europe-west1 --project ${{ secrets.GCP_PROJECT_ID }} 
 
+        # 🔽 Ajoute une pause simple
+    - name: Wait for cluster to settle
+      run: |
+        echo "Waiting 60s for cluster to stabilize..."
+        sleep 60
+        kubectl get nodes
+        kubectl get pods -A
+
     - name: Install Helm chart
       run: |
         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
         helm repo update
-        helm upgrade --install monitoring prometheus-community/kube-prometheus-stack -f helm/values.yaml --namespace monitoring --create-namespace
+        helm upgrade --install monitoring prometheus-community/kube-prometheus-stack \
+        -f helm/values.yaml \
+        --namespace monitoring \
+        --create-namespace \
+        --timeout 10m0s
