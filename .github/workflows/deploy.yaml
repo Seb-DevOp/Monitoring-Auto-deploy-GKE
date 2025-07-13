@@ -21,6 +21,10 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+    - name: Install GKE auth plugin
+      run: gcloud components install gke-gcloud-auth-plugin
+      
+
     - name: Inject Grafana password
       run: |
         sed -i "s/\${GRAFANA_PASSWORD}/${{ secrets.GRAFANA_PASSWORD }}/g" helm/values.yaml
