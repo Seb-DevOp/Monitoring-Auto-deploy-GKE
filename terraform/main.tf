@@ -1,3 +1,10 @@
+terraform {
+  backend "gcs" {
+    bucket  = "bucket_projet_master"
+    prefix  = "GKE_Tfsate"
+  }
+}
+
 provider "google" {
   project = var.project_id
   region  = var.region

@@ -25,17 +25,13 @@ Chaque push sur `main` déploie automatiquement :
 2. Stack de monitoring
 3. Ingress HTTPS
 
-## 🔐 Sécurité
+## 🔐 VARIABLES
 
-- TLS automatique via cert-manager
 Nom du Secret GitHub ->	Valeur attendue
 GCP_PROJECT_ID	    ->   Ton ID de projet GCP (ex: my-gcp-devops)
 GCP_SA_KEY	        ->   Le contenu du fichier JSON de ta service account
 GRAFANA_PASSWORD	->   Le mot de passe admin que tu souhaites pour Grafana
 
+/!\ Changer également le bucket qui stock le tfsate (en haut du fichier main.tf) /!\
 
-## 📚 TODO
 
-- Ajouter Alertmanager
-- Stockage persisté Grafana
-- Autoscaling Prometheus Pods
