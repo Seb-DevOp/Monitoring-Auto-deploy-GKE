@@ -13,7 +13,7 @@ provider "google" {
 resource "google_container_cluster" "primary" {
   name     = "gke-monitoring-cluster"
   location = var.region
-
+  deletion_protection = false
   remove_default_node_pool = true
   initial_node_count       = 1
 
