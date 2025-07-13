@@ -59,7 +59,7 @@ jobs:
         # Ajoute une pause simple
     - name: Wait for cluster to settle
       run: |
-        echo "Waiting 120s for cluster to stabilize..."
+        echo "Waiting 180s for cluster to stabilize..."
         sleep 180
         kubectl get nodes
         kubectl get pods -A
@@ -68,8 +68,12 @@ jobs:
       run: |
         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
         helm repo update
+        n=0
+        until [ "$n" -ge 5 ]
+        do
         helm upgrade --install monitoring prometheus-community/kube-prometheus-stack \
-        -f helm/values.yaml \
-        --namespace monitoring \
-        --create-namespace \
-        --timeout 10m0s
+            -f helm/values.yaml --namespace monitoring --create-namespace && break
+        n=$((n+1))
+        echo "Helm failed. Retrying in 20s..."
+        sleep 20
+        done
