@@ -51,7 +51,7 @@ jobs:
         # Ajoute une pause simple
     - name: Wait for cluster to settle
       run: |
-        echo "Waiting 60s for cluster to stabilize..."
+        echo "Waiting 120s for cluster to stabilize..."
         sleep 120
         kubectl get nodes
         kubectl get pods -A
